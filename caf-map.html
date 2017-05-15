@@ -143,12 +143,28 @@ $(document).ready(function () {
 <div id="the-data-frame" class="section level2">
 <h2>The Data Frame</h2>
 <p>First we’ll make a data frame of the restaurant names, latitude, and longitude.</p>
+<pre class="r"><code>library(leaflet)
+library(tidyverse)</code></pre>
+<pre class="r"><code>ca_url &lt;- &quot;http://brasasmexgrill.com/wp-content/uploads/2016/04/asadafries1.png&quot;
+
+caf_icon &lt;- makeIcon(iconUrl = ca_url, iconWidth = 60*215/230, 
+                     iconHeight = 60, iconAnchorX = 60*215/230/2, 
+                     iconAnchorY = 16)</code></pre>
+<pre class="r"><code>caf &lt;- data.frame(name = c(&quot;The Taco Stand&quot;, &quot;Las Panchitas&quot;, 
+                           &quot;Mike's Taco Club&quot;, &quot;La Perla Cocina Mexicano&quot;, 
+                           &quot;Picante Taqueria Mexican Grill&quot;), 
+                  lat = c(32.838671, 32.808474, 32.747841, 32.798498, 32.793749), 
+                  lng = c(-117.273043, -117.160694, -117.251978, -117.256413, -117.098261))</code></pre>
 </div>
 <div id="the-map" class="section level2">
 <h2>The Map</h2>
 <p>We’ll generate the map using the <code>leaflet</code> package.</p>
-<div id="htmlwidget-6cf0da2ecb3c9e942d42" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6cf0da2ecb3c9e942d42">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[32.838671,32.808474,32.747841,32.798498,32.793749],[-117.273043,-117.160694,-117.251978,-117.256413,-117.098261],{"iconUrl":{"data":"http://brasasmexgrill.com/wp-content/uploads/2016/04/asadafries1.png","index":0},"iconWidth":56.0869565217391,"iconHeight":60,"iconAnchorX":28.0434782608696,"iconAnchorY":16},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["The Taco Stand","Las Panchitas","Mike's Taco Club","La Perla Cocina Mexicano","Picante Taqueria Mexican Grill"],null,null,null,null,null,null]}],"limits":{"lat":[32.747841,32.838671],"lng":[-117.273043,-117.098261]}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>caf %&gt;% 
+  leaflet() %&gt;% 
+  addTiles() %&gt;% 
+  addMarkers(popup = caf$name, icon = caf_icon)</code></pre>
+<div id="htmlwidget-c08ec90153eaeb8bd7f3" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c08ec90153eaeb8bd7f3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[32.838671,32.808474,32.747841,32.798498,32.793749],[-117.273043,-117.160694,-117.251978,-117.256413,-117.098261],{"iconUrl":{"data":"http://brasasmexgrill.com/wp-content/uploads/2016/04/asadafries1.png","index":0},"iconWidth":56.0869565217391,"iconHeight":60,"iconAnchorX":28.0434782608696,"iconAnchorY":16},null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["The Taco Stand","Las Panchitas","Mike's Taco Club","La Perla Cocina Mexicano","Picante Taqueria Mexican Grill"],null,null,null,null,null,null]}],"limits":{"lat":[32.747841,32.838671],"lng":[-117.273043,-117.098261]}},"evals":[],"jsHooks":[]}</script>
 </div>
 
 

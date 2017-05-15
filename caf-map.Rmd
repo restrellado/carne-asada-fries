@@ -7,8 +7,6 @@ output: html_document
 
 ```{r echo = F, message = F}
 library(knitr)
-library(leaflet)
-library(tidyverse)
 ```
 
 ```{r echo = F, message = F}
@@ -25,7 +23,12 @@ This is a map of the top five results when I searched for "carne asada fries in 
 
 First we'll make a data frame of the restaurant names, latitude, and longitude.
 
-```{r}
+```{r echo = T}
+library(leaflet)
+library(tidyverse)
+```
+
+```{r echo = T}
 ca_url <- "http://brasasmexgrill.com/wp-content/uploads/2016/04/asadafries1.png"
 
 caf_icon <- makeIcon(iconUrl = ca_url, iconWidth = 60*215/230, 
@@ -33,7 +36,7 @@ caf_icon <- makeIcon(iconUrl = ca_url, iconWidth = 60*215/230,
                      iconAnchorY = 16)
 ```
 
-```{r}
+```{r echo = T}
 caf <- data.frame(name = c("The Taco Stand", "Las Panchitas", 
                            "Mike's Taco Club", "La Perla Cocina Mexicano", 
                            "Picante Taqueria Mexican Grill"), 
@@ -45,7 +48,7 @@ caf <- data.frame(name = c("The Taco Stand", "Las Panchitas",
 
 We'll generate the map using the `leaflet` package. 
 
-```{r}
+```{r echo = T}
 caf %>% 
   leaflet() %>% 
   addTiles() %>% 
