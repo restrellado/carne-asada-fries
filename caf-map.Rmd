@@ -1,0 +1,54 @@
+---
+title: "Carne Asada Fries Map"
+author: "Ryan Estrellado"
+date: "5/14/2017"
+output: html_document
+---
+
+```{r echo = F, message = F}
+library(knitr)
+library(leaflet)
+library(tidyverse)
+```
+
+```{r echo = F, message = F}
+opts_chunk$set(echo = F, message = F)
+```
+
+This is a map of the top five results when I searched for "carne asada fries in San Diego" on [Yelp!](https://www.yelp.com/search?find_desc=carne+asada+fries&find_loc=San+Diego,+CA&start=0&sortby=rating). A few notes about the search results:  
+
+- This search was done on May 14, 2017 at around 8:15 am, so there may be a new queen of carne asada fries when searching in the future  
+- I sorted the results by "highest rated"  
+- I do not recommend trying all of these in one night  
+
+## The Data Frame 
+
+First we'll make a data frame of the restaurant names, latitude, and longitude.
+
+```{r}
+ca_url <- "http://brasasmexgrill.com/wp-content/uploads/2016/04/asadafries1.png"
+
+caf_icon <- makeIcon(iconUrl = ca_url, iconWidth = 60*215/230, 
+                     iconHeight = 60, iconAnchorX = 60*215/230/2, 
+                     iconAnchorY = 16)
+```
+
+```{r}
+caf <- data.frame(name = c("The Taco Stand", "Las Panchitas", 
+                           "Mike's Taco Club", "La Perla Cocina Mexicano", 
+                           "Picante Taqueria Mexican Grill"), 
+                  lat = c(32.838671, 32.808474, 32.747841, 32.798498, 32.793749), 
+                  lng = c(-117.273043, -117.160694, -117.251978, -117.256413, -117.098261))
+```
+
+## The Map  
+
+We'll generate the map using the `leaflet` package. 
+
+```{r}
+caf %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(popup = caf$name, icon = caf_icon)
+```
+
